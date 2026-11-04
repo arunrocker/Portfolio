@@ -31,8 +31,9 @@ nav ul a:hover{color:var(--ink)}
 .dot{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 4px color-mix(in srgb,var(--ok) 25%,transparent)}
 h1{font:400 clamp(2.6rem,6vw,4.4rem)/1.04 var(--serif);margin:22px 0 18px;letter-spacing:-.01em}
 .lead{color:var(--muted);max-width:52ch;font-size:1.08rem}
-.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
-.btn{display:inline-block;text-decoration:none;font-weight:700;font-size:.95rem;padding:12px 22px;border-radius:10px;border:1px solid var(--ink);cursor:pointer;font-family:var(--sans)}
+.cta{display:grid;grid-template-columns:repeat(3,auto);justify-content:start;gap:12px;margin-top:28px}
+@media(max-width:600px){.cta{grid-template-columns:1fr}}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;text-align:center;text-decoration:none;font-weight:700;font-size:.95rem;line-height:1.2;min-height:48px;padding:12px 22px;border-radius:10px;border:1px solid var(--ink);cursor:pointer;font-family:var(--sans);white-space:nowrap}
 .btn.p{background:var(--ink);color:var(--bg)}
 .btn.g{background:transparent;color:var(--ink)}
 .btn:hover{transform:translateY(-1px)}
@@ -43,6 +44,12 @@ h1{font:400 clamp(2.6rem,6vw,4.4rem)/1.04 var(--serif);margin:22px 0 18px;letter
 .api .k{color:#8fb0ff}.api .s{color:#f0c470}.api .ok{color:#5be0b0}.api .w{color:#ffb86b}
 .api button{width:100%;background:#1b2c52;color:#fff;border:0;padding:14px;font:500 .85rem var(--mono);cursor:pointer;border-top:1px solid #243a68}
 .api button:hover{background:#22386a}
+.me{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:28px}
+.av{width:76px;height:76px;border-radius:50%;display:grid;place-items:center;font:400 2rem var(--serif);color:#fff;background:linear-gradient(135deg,var(--blue),#1b2f7a);margin-bottom:16px}
+.me h3{margin:0;font-size:1.3rem}.me p{margin:2px 0 18px;color:var(--muted);font-size:.93rem}
+.me ul{list-style:none;margin:0;padding:0}.me li{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-top:1px solid var(--line);font-size:.92rem;color:var(--muted)}
+.me li b{color:var(--ink)}
+.demo{max-width:680px}
 .hint{font-size:.8rem;color:var(--muted);margin:10px 4px 0}
 /* metrics */
 .metrics{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:16px;background:var(--surface);overflow:hidden}
@@ -74,7 +81,7 @@ h2{font:400 clamp(2rem,4vw,2.8rem)/1.1 var(--serif);margin:0 0 10px}
 .chips i{font-style:normal;font-size:.83rem;border:1px solid var(--line);border-radius:8px;padding:4px 10px;background:var(--bg)}
 /* projects */
 .proj{border-top:3px solid var(--blue)}
-.proj:nth-child(2){border-top-color:var(--gold)}
+.proj:nth-child(even){border-top-color:var(--gold)}
 .proj big{display:block;font:400 2.2rem/1 var(--serif);margin:14px 0 4px}
 /* contact */
 .contact{display:grid;grid-template-columns:.8fr 1.2fr;gap:32px}
@@ -99,6 +106,7 @@ footer{padding:64px 0 40px;color:var(--muted);font-size:.88rem;text-align:center
     <li><a href="#skills">Skills</a></li>
     <li><a href="#projects">Projects</a></li>
     <li><a href="#contact">Contact</a></li>
+    <li><a href="Arun_Kumar_M_Resume.pdf" download="Arun_Kumar_M_Resume.pdf" style="color:var(--blue);font-weight:700">Download CV</a></li>
     <li><button class="tt" id="tt" type="button" aria-label="Toggle theme">Theme</button></li>
   </ul>
 </nav>
@@ -107,28 +115,25 @@ footer{padding:64px 0 40px;color:var(--muted);font-size:.88rem;text-align:center
 <div class="hero">
   <div>
     <span class="badge"><span class="dot"></span>Immediate joiner · Chennai, India</span>
-    <h1>I build the banking systems people trust with their money.</h1>
-    <p class="lead">Java Full Stack Developer with 3+ years in private banking. I design secure Spring Boot microservices and responsive Angular apps that serve 1000+ concurrent users, and I ship them through automated pipelines.</p>
+    <h1>Building secure, high-scale banking platforms.</h1>
+    <p class="lead">Java Full Stack Developer with 3+ years in private banking. Spring Boot microservices, Angular front ends and automated releases for 1000+ concurrent users.</p>
     <div class="cta">
       <a class="btn p" href="#contact">Send me a message</a>
-      <a class="btn g" href="https://linkedin.com/in/arun-kumar-m-65b718219" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn g" href="Arun_Kumar_M_Resume.pdf" download="Arun_Kumar_M_Resume.pdf">&#8595; Download CV</a>
+      <a class="btn g" href="https://linkedin.com/in/arun-kumar-m-65b718219" target="_blank" rel="noopener">LinkedIn &#8599;</a>
     </div>
   </div>
-  <div>
-    <div class="api" aria-live="polite">
-      <header><span>POST /api/orders</span><span>Idempotency-Key: ord-7f3a</span></header>
-      <pre id="out"><span class="k">Ready.</span> Send the same order twice and see what a safe payment API does.</pre>
-      <button id="send" type="button">Place order</button>
-    </div>
-    <p class="hint">A small demo of the idempotent APIs I build for trading and payments.</p>
-  </div>
-</div>
-
-<div class="metrics">
-  <div><b>40%</b><span>faster client-list performance</span></div>
-  <div><b>35%</b><span>quicker releases with Jenkins CI/CD</span></div>
-  <div><b>30%</b><span>lower infrastructure overhead</span></div>
-  <div><b>99%</b><span>production uptime and deployment success</span></div>
+  <aside class="me">
+    <div class="av">AK</div>
+    <h3>Arun Kumar M</h3>
+    <p>Java Full Stack Developer<br>Spring Boot &middot; Angular</p>
+    <ul>
+      <li><span>Experience</span><b>3+ yrs, banking</b></li>
+      <li><span>Scale</span><b>1000+ concurrent users</b></li>
+      <li><span>Rating</span><b>A Band, 3 years running</b></li>
+      <li><span>Availability</span><b>Immediate joiner</b></li>
+    </ul>
+  </aside>
 </div>
 
 <section id="experience">
@@ -148,6 +153,17 @@ footer{padding:64px 0 40px;color:var(--muted);font-size:.88rem;text-align:center
   </div>
 </section>
 
+<section id="impact">
+  <h2>Impact in numbers</h2>
+  <p class="sub">Measured results from three years on a private banking platform.</p>
+  <div class="metrics">
+  <div><b>40%</b><span>faster client-list performance</span></div>
+  <div><b>35%</b><span>quicker releases with Jenkins CI/CD</span></div>
+  <div><b>30%</b><span>lower infrastructure overhead</span></div>
+  <div><b>99%</b><span>production uptime and deployment success</span></div>
+</div>
+</section>
+
 <section id="skills">
   <h2>Skills</h2>
   <p class="sub">The stack I use every day, plus the tools that keep it secure and shippable.</p>
@@ -163,10 +179,29 @@ footer{padding:64px 0 40px;color:var(--muted);font-size:.88rem;text-align:center
 
 <section id="projects">
   <h2>Projects</h2>
-  <p class="sub">Two banking-domain products built on Spring Boot microservices.</p>
+  <p class="sub">Products and platform work from my time on the private banking platform.</p>
   <div class="grid2">
     <div class="card proj"><span class="tag">Banking domain</span><h4>Payments &amp; Trading Platform</h4><p>Secure microservices for domestic and international payments and securities trading, built with PCI compliance in mind.</p><big>25%</big><p>lower API latency</p></div>
-    <div class="card proj"><span class="tag">Banking domain</span><h4>Funds Portfolio Viewer</h4><p>Scalable backend services for real-time portfolio analytics, statement generation and document management.</p><big>20%</big><p>better data accessibility and user engagement</p></div>
+    <div class="card proj"><span class="tag">Banking domain</span><h4>Funds Portfolio Viewer</h4><p>Scalable backend services for real-time portfolio analytics, statement generation and document management.</p><big>20%</big><p>better data accessibility and engagement</p></div>
+    <div class="card proj"><span class="tag">Internal tooling</span><h4>Admin &amp; Advisor Mail Module</h4><p>Admin console with user management, client logs, frontend URL validation and application metrics, plus an advisor-to-client mail module.</p><big>30%</big><p>fewer support requests</p></div>
+    <div class="card proj"><span class="tag">DevOps</span><h4>Jenkins CI/CD Release Pipeline</h4><p>Automated builds and releases. Microservice JARs run as Windows services and Angular is served from Tomcat, with Apache proxy routing.</p><big>35%</big><p>quicker releases</p></div>
+    <div class="card proj"><span class="tag">Security</span><h4>Security Hardening &amp; Encryption</h4><p>Fixed a CSRF/JWT bypass, a SQL injection flaw and exposed client-side secret keys. Added RSA encryption with dynamic seed and IV.</p><big>3</big><p>critical vulnerabilities closed</p></div>
+    <div class="card proj"><span class="tag">Architecture</span><h4>API Gateway &amp; Angular Components</h4><p>Refactored the API Gateway and built reusable Angular components, clearing every SonarQube finding.</p><big>40%</big><p>less integration effort</p></div>
+  </div>
+</section>
+
+<section id="demo">
+  <h2>Live demo</h2>
+  <p class="sub">Try it: place an order, then send the same request again. A safe payment API records it only once.</p>
+  <div class="demo">
+  <div>
+    <div class="api" aria-live="polite">
+      <header><span>POST /api/orders</span><span>Idempotency-Key: ord-7f3a</span></header>
+      <pre id="out"><span class="k">Ready.</span> Send the same order twice and see what a safe payment API does.</pre>
+      <button id="send" type="button">Place order</button>
+    </div>
+    <p class="hint">The same idempotency pattern I use in the trading and payments APIs.</p>
+  </div>
   </div>
 </section>
 
@@ -187,6 +222,7 @@ footer{padding:64px 0 40px;color:var(--muted);font-size:.88rem;text-align:center
       <a href="mailto:m.arunkumarmar12@gmail.com"><small>Email</small>m.arunkumarmar12@gmail.com</a>
       <a href="tel:+917305238584"><small>Phone</small>+91 73052 38584</a>
       <a href="https://linkedin.com/in/arun-kumar-m-65b718219" target="_blank" rel="noopener"><small>LinkedIn</small>linkedin.com/in/arun-kumar-m-65b718219</a>
+      <a href="Arun_Kumar_M_Resume.pdf" download="Arun_Kumar_M_Resume.pdf"><small>Resume</small>Download CV (PDF) &#8595;</a>
       <a href="#contact"><small>Location</small>Chennai, India</a>
     </div>
     <form id="cf" class="card" novalidate>
