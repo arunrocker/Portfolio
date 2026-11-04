@@ -95,6 +95,13 @@ form textarea{min-height:140px;resize:vertical}
 .status.err{color:#d6453d}
 .vc{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 16px;margin-bottom:14px;color:var(--ink)}
 .vc b{font-family:var(--mono);color:var(--blue)}
+.hi{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:50;width:min(340px,calc(100vw - 32px));background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:0 12px 40px rgba(10,20,50,.22)}
+.hi[hidden]{display:none}
+.hi p{margin:4px 0 12px;color:var(--muted);font-size:.88rem}
+.hi .row{display:flex;gap:8px}
+.hi input{flex:1;min-width:0;font:400 .95rem var(--sans);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.hi .btn{min-height:42px;padding:8px 16px}
+.hi .x{position:absolute;top:8px;right:12px;background:none;border:0;color:var(--muted);font-size:1.3rem;cursor:pointer;line-height:1}
 footer{padding:64px 0 40px;color:var(--muted);font-size:.88rem;text-align:center}
 @media(prefers-reduced-motion:no-preference){.hero>div:first-child{animation:in .7s ease both}@keyframes in{from{opacity:0;transform:translateY(14px)}}}
 </style>
@@ -243,6 +250,12 @@ footer{padding:64px 0 40px;color:var(--muted);font-size:.88rem;text-align:center
 © 2026 Arun Kumar M · Java Full Stack Developer</footer>
 </div>
 
+<div class="hi" id="hi" hidden role="dialog" aria-label="Say hello">
+  <button class="x" id="hix" type="button" aria-label="Close">&times;</button>
+  <b id="hit">Hi, who’s visiting?</b>
+  <p id="hip">Optional: share your name so I know who stopped by. It is sent only to me.</p>
+  <div class="row" id="hir"><input id="hin" maxlength="40" placeholder="Your name or company" autocomplete="name"><button class="btn p" id="hig" type="button">Say hi</button></div>
+</div>
 <script>
 (function(){
   var TO="m.arunkumarmar12@gmail.com";
@@ -281,6 +294,23 @@ footer{padding:64px 0 40px;color:var(--muted);font-size:.88rem;text-align:center
     gs.onload=function(){setTimeout(loadCount,1500);setInterval(loadCount,300000)};
     document.head.appendChild(gs);
   }
+  // optional "who is visiting" prompt, sent to GoatCounter as an event (visible only in your dashboard)
+  var hi=document.getElementById("hi"),KEY="hi_done";
+  function done(){try{localStorage.setItem(KEY,"1")}catch(e){}}
+  var seen=false;try{seen=!!localStorage.getItem(KEY)}catch(e){}
+  if(!seen){setTimeout(function(){hi.hidden=false},4000)}
+  document.getElementById("hix").addEventListener("click",function(){hi.hidden=true;done()});
+  function sayHi(){
+    var v=document.getElementById("hin").value.trim().replace(/[^\p{L}\p{N} .&'-]/gu,"").slice(0,40);
+    if(!v)return;
+    try{if(window.goatcounter&&window.goatcounter.count){window.goatcounter.count({path:"visitor-"+v,title:"Visitor: "+v,event:true})}}catch(e){}
+    document.getElementById("hit").textContent="Thanks, "+v+"!";
+    document.getElementById("hip").textContent="Nice to meet you. Enjoy the portfolio.";
+    document.getElementById("hir").hidden=true;done();
+    setTimeout(function(){hi.hidden=true},3000);
+  }
+  document.getElementById("hig").addEventListener("click",sayHi);
+  document.getElementById("hin").addEventListener("keydown",function(e){if(e.key==="Enter")sayHi()});
   // theme toggle
   document.getElementById("tt").addEventListener("click",function(){
     var r=document.documentElement,cur=r.getAttribute("data-theme");
