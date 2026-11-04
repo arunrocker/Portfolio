@@ -273,11 +273,12 @@ footer{padding:64px 0 40px;color:var(--muted);font-size:.88rem;text-align:center
     var gs=document.createElement("script");
     gs.async=true;gs.setAttribute("data-goatcounter","https://"+GC+".goatcounter.com/count");
     gs.src="https://gc.zgo.at/count.js";
-    gs.onload=function(){setTimeout(function(){
-      fetch("https://"+GC+".goatcounter.com/counter/TOTAL.json").then(function(r){return r.json()}).then(function(d){
+    function loadCount(){
+      fetch("https://"+GC+".goatcounter.com/counter/TOTAL.json",{cache:"no-store"}).then(function(r){return r.json()}).then(function(d){
         document.getElementById("vcn").textContent=d.count;document.getElementById("vc").hidden=false;
       }).catch(function(){});
-    },900)};
+    }
+    gs.onload=function(){setTimeout(loadCount,1500);setInterval(loadCount,300000)};
     document.head.appendChild(gs);
   }
   // theme toggle
