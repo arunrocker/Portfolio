@@ -93,6 +93,8 @@ form input,form textarea{width:100%;font:400 1rem var(--sans);color:var(--ink);b
 form textarea{min-height:140px;resize:vertical}
 .status{margin-top:14px;font-size:.9rem;color:var(--ok);min-height:1.4em}
 .status.err{color:#d6453d}
+.vc{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 16px;margin-bottom:14px;color:var(--ink)}
+.vc b{font-family:var(--mono);color:var(--blue)}
 footer{padding:64px 0 40px;color:var(--muted);font-size:.88rem;text-align:center}
 @media(prefers-reduced-motion:no-preference){.hero>div:first-child{animation:in .7s ease both}@keyframes in{from{opacity:0;transform:translateY(14px)}}}
 </style>
@@ -236,7 +238,9 @@ footer{padding:64px 0 40px;color:var(--muted);font-size:.88rem;text-align:center
   </div>
 </section>
 </main>
-<footer>© 2026 Arun Kumar M · Java Full Stack Developer</footer>
+<footer>
+<div class="vc" id="vc" hidden><span class="dot"></span>Portfolio views: <b id="vcn">0</b></div><br>
+© 2026 Arun Kumar M · Java Full Stack Developer</footer>
 </div>
 
 <script>
@@ -263,6 +267,19 @@ footer{padding:64px 0 40px;color:var(--muted);font-size:.88rem;text-align:center
       out.innerHTML='<span class="k">200 OK</span> <span class="w">(replayed)</span>\n{ <span class="k">"orderId"</span>: <span class="s">"ORD-48213"</span>,\n  <span class="k">"status"</span>: <span class="ok">"PLACED"</span> }\n\nSame key, same result. No duplicate trade.';
     }
   });
+  // visitor analytics (GoatCounter): paste your GoatCounter code below, e.g. "arunrocker"
+  var GC="arunrocker";
+  if(GC&&GC.indexOf("YOUR-")!==0){
+    var gs=document.createElement("script");
+    gs.async=true;gs.setAttribute("data-goatcounter","https://"+GC+".goatcounter.com/count");
+    gs.src="https://gc.zgo.at/count.js";
+    gs.onload=function(){setTimeout(function(){
+      fetch("https://"+GC+".goatcounter.com/counter/TOTAL.json").then(function(r){return r.json()}).then(function(d){
+        document.getElementById("vcn").textContent=d.count;document.getElementById("vc").hidden=false;
+      }).catch(function(){});
+    },900)};
+    document.head.appendChild(gs);
+  }
   // theme toggle
   document.getElementById("tt").addEventListener("click",function(){
     var r=document.documentElement,cur=r.getAttribute("data-theme");
